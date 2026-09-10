@@ -1,7 +1,17 @@
 # tahun3-bc-bishun · 三年级写字（笔顺描红）
 
-**状态**：✅ **已上线**（`https://tahun3-bc-bishun.vercel.app`），已上架课堂点子铺。**v1.1**。
+**状态**：✅ **已上线**（`https://tahun3-bc-bishun.vercel.app`），已上架课堂点子铺。**v1.2**。
 **最后更新**：2026-09-10（Claude Sonnet 5）
+
+## v1.2（2026-09-10，加原创星星娃娃角色）
+Codex（`xx` 帐号，14:54 额度 refresh 后）用它自己的 OpenAI 生图能力生了 3 张原创星星娃娃
+（1024²→缩到 560² RGBA 透明 PNG，存 `assets/`，`build-data.mjs` 不碰它们）：
+- `star-cheer.png`（举星欢呼）→ 写对一个字 / 小考答对时从田字格**左下角**蹦出来一下再退回，**不挡字**
+- `star-read.png`（坐云看书）→ 首页/各页**左下角**静态布景，opacity .78
+- `star-peek.png`（云后探头挥手）→ **右上角**静态布景，opacity .6，手机端隐藏
+所有角色都是原创（胖幼儿 + 星形帽连体衣的通用形象），不是那套盲盒角色的复制。
+⚠️ CSS 里图片路径是 `url("../assets/...")`（相对 `css/` 目录，不是 `assets/`，第一次写错踩过）。
+移除角色：删 `assets/star-*.png` + `.reward-buddy`/`.scene-buddy` 的 background-image + index.html 两个 `scene-buddy` div。
 
 ## v1.1（2026-09-10，学生用之前，安全）
 老师反馈「背景很空」「奖励动画不要挡住写好的字」。
