@@ -1,0 +1,17 @@
+{
+  "name": "tahun3-bc-bishun",
+  "version": "1.0.0",
+  "description": "三年级华文习写生字 · 笔顺描红练习（纯前端）",
+  "main": "index.html",
+  "scripts": {
+    "build-data": "node build-data.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "hanzi-writer": "^3.7.0",
+    "hanzi-writer-data": "^2.0.1"
+  }
+}

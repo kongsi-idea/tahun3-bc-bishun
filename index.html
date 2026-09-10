@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>三年级写字 · 习写生字笔顺</title>
+<meta name="description" content="跟着笔顺，一笔一笔把三年级华文的习写生字写好。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23F6D08A'/%3E%3Crect x='13' y='13' width='74' height='74' rx='13' fill='%23FFFBF0' stroke='%23C89235' stroke-width='4'/%3E%3Cpath d='M50 17 55 27 66 28 58 36 60 47 50 42 40 47 42 36 34 28 45 27 Z' fill='%23F5C13E' opacity='.6'/%3E%3Ctext x='50' y='73' font-size='34' text-anchor='middle' fill='%235A3D28' font-family='sans-serif' font-weight='700'%3E字%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700;900&family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- 暖调梦幻背景：晨光 + 云 + 垂吊的金色剪纸星星 -->
+<div class="dream-bg" aria-hidden="true">
+  <div class="sun-glow"></div>
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div>
+  <div class="hang-stars">
+    <span class="hs" style="--x:12%;--l:70px;--s:26px;--d:0s"></span>
+    <span class="hs" style="--x:26%;--l:120px;--s:20px;--d:.6s"></span>
+    <span class="hs" style="--x:48%;--l:56px;--s:30px;--d:1.1s"></span>
+    <span class="hs" style="--x:70%;--l:100px;--s:22px;--d:.3s"></span>
+    <span class="hs" style="--x:86%;--l:76px;--s:27px;--d:.9s"></span>
+  </div>
+  <div class="hill-cloud"></div>
+</div>
+<!-- 华丽金色画框 -->
+<div class="gold-frame" aria-hidden="true">
+  <svg class="corner tl" viewBox="0 0 120 120"><use href="#flourish"/></svg>
+  <svg class="corner tr" viewBox="0 0 120 120"><use href="#flourish"/></svg>
+  <svg class="corner bl" viewBox="0 0 120 120"><use href="#flourish"/></svg>
+  <svg class="corner br" viewBox="0 0 120 120"><use href="#flourish"/></svg>
+</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="flourish" fill="none" stroke="var(--frame-line)" stroke-width="3" stroke-linecap="round">
+    <path d="M6 40 C6 18 18 6 40 6"/>
+    <path d="M14 52 C14 26 26 14 52 14" opacity=".7"/>
+    <path d="M24 22 C34 12 46 12 58 16 C50 22 44 30 40 40 C30 34 24 30 24 22 Z" fill="var(--frame-line)" stroke="none" opacity=".85"/>
+    <circle cx="40" cy="40" r="3.2" fill="var(--frame-line)" stroke="none"/>
+  </g>
+</defs></svg>
+
+<button id="muteBtn" class="mute-btn" type="button" aria-pressed="false" title="声音开关">
+  <span class="mute-on" aria-hidden="true">🔔</span><span class="mute-off" aria-hidden="true">🔕</span>
+</button>
+
+<!-- ========== 选名字 ========== -->
+<main id="screen-who" class="screen" hidden>
+  <header class="home-head">
+    <p class="tagline">✦ we are twinkle twinkle ✦</p>
+    <h1 class="brand">三年级写字</h1>
+    <p class="brand-sub" id="whoSub">先点一下你的名字</p>
+  </header>
+
+  <div class="who-code" id="whoCode" hidden>
+    <input type="text" id="whoCodeInput" placeholder="班级代码，例如 JBC1037-3I" maxlength="24" autocomplete="off" autocapitalize="characters">
+    <button type="button" id="whoCodeBtn">看名单</button>
+    <button type="button" id="whoCodeSkip" class="linkish">跳过，直接打名字</button>
+  </div>
+
+  <div class="who-grid" id="whoGrid"></div>
+
+  <div class="who-manual" id="whoManual" hidden>
+    <input type="text" id="whoInput" placeholder="打上你的名字" maxlength="20" autocomplete="off">
+    <button type="button" id="whoGoBtn">开始</button>
+  </div>
+  <footer class="page-foot" id="whoFoot"></footer>
+</main>
+
+<!-- ========== 首页：选单元 ========== -->
+<main id="screen-home" class="screen">
+  <header class="home-head">
+    <p class="tagline">✦ we are twinkle twinkle ✦</p>
+    <h1 class="brand">三年级写字</h1>
+    <p class="brand-sub">跟着笔顺，一笔一笔写</p>
+    <div class="overall" id="overallProgress"></div>
+    <button class="who-switch" id="whoSwitch" type="button" hidden></button>
+  </header>
+  <div class="unit-grid" id="unitGrid"></div>
+  <footer class="page-foot">三年级华文 · 习写生字 · 课堂点子铺</footer>
+</main>
+
+<!-- ========== 单元页：选字 ========== -->
+<main id="screen-unit" class="screen" hidden>
+  <header class="sub-head">
+    <button class="back-btn" data-go="home" type="button">← 回单元</button>
+    <h2 id="unitTitle" class="sub-title"></h2>
+    <button class="quiz-btn" id="unitQuizBtn" type="button">小考一下</button>
+  </header>
+  <div class="char-grid" id="charGrid"></div>
+</main>
+
+<!-- ========== 练习页：写字 ========== -->
+<main id="screen-practice" class="screen" hidden>
+  <header class="sub-head practice-head">
+    <button class="back-btn" data-go="unit" type="button">← 回单元</button>
+    <span id="practicePos" class="practice-pos"></span>
+    <span id="practiceStrokes" class="practice-strokes"></span>
+  </header>
+
+  <div class="steps" id="stepTabs">
+    <button class="step" data-step="watch" type="button">看一看</button>
+    <button class="step" data-step="trace" type="button">描一描</button>
+    <button class="step" data-step="write" type="button">写一写</button>
+  </div>
+
+  <div class="stage">
+    <div class="tian-wrap">
+      <div class="tian" id="tianGrid">
+        <div class="tian-line v"></div><div class="tian-line h"></div>
+        <div class="tian-line d1"></div><div class="tian-line d2"></div>
+        <div id="writerTarget" class="writer-target"></div>
+        <div class="stamp" id="stamp" hidden><span>棒</span></div>
+      </div>
+    </div>
+    <button class="say-btn" id="sayBtn" type="button" hidden><span aria-hidden="true">🔊</span> 听读音</button>
+    <p class="coach" id="coachText"></p>
+  </div>
+
+  <div class="practice-actions" id="practiceActions"></div>
+</main>
+
+<!-- ========== 小考页 ========== -->
+<main id="screen-quiz" class="screen" hidden>
+  <header class="sub-head">
+    <button class="back-btn" data-go="unit" type="button">← 回单元</button>
+    <h2 id="quizTitle" class="sub-title">小考</h2>
+    <span id="quizPos" class="practice-pos"></span>
+  </header>
+  <div class="stage">
+    <div class="tian-wrap">
+      <div class="tian" id="quizTian">
+        <div class="tian-line v"></div><div class="tian-line h"></div>
+        <div class="tian-line d1"></div><div class="tian-line d2"></div>
+        <div id="quizTarget" class="writer-target"></div>
+        <div class="stamp" id="quizStamp" hidden><span>棒</span></div>
+      </div>
+    </div>
+    <p class="coach" id="quizCoach">凭记忆写出来，写错了会给你提示。</p>
+  </div>
+  <div class="practice-actions" id="quizActions"></div>
+</main>
+
+<div id="toast" class="toast" hidden></div>
+
+<!-- kelasku 班级名单：网址带 ?code= 时读名单让学生选自己的名字；读不到就退回手动输入 -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://kongsi-idea.vercel.app/data/supabase-client.js"></script>
+<script src="https://kongsi-idea.vercel.app/data/class-code-client.js"></script>
+<script src="js/units.js"></script>
+<script src="js/char-data.js"></script>
+<script src="vendor/hanzi-writer.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
