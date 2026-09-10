@@ -79,6 +79,29 @@ body{
 .dream-bg .c4{width:120px;height:38px;left:16%;bottom:20%;opacity:.55}
 .dream-bg .c4::before{width:56px;height:56px;left:14px;top:-24px}
 .dream-bg .c4::after{width:42px;height:42px;right:12px;top:-14px}
+.dream-bg .c5{width:150px;height:46px;right:20%;bottom:9%;opacity:.5}
+.dream-bg .c5::before{width:66px;height:66px;left:20px;top:-28px}
+.dream-bg .c5::after{width:50px;height:50px;right:16px;top:-16px}
+
+/* 细小的闪烁星点 */
+.dream-bg .twinkles{position:absolute;inset:0;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%,rgba(255,246,214,.9),transparent),
+    radial-gradient(2px 2px at 68% 18%,rgba(255,246,214,.75),transparent),
+    radial-gradient(1.5px 1.5px at 40% 62%,rgba(255,246,214,.7),transparent),
+    radial-gradient(2px 2px at 84% 48%,rgba(255,246,214,.8),transparent),
+    radial-gradient(1.5px 1.5px at 12% 72%,rgba(255,246,214,.65),transparent),
+    radial-gradient(2px 2px at 55% 82%,rgba(255,246,214,.7),transparent);
+  animation:twinkle 3.6s ease-in-out infinite;
+}
+@keyframes twinkle{0%,100%{opacity:.45}50%{opacity:.9}}
+
+/* 静态星星娃娃布景（v1.2）：等 assets/star-read.png / star-peek.png 就绪后接回
+   .dream-bg .scene-buddy{position:absolute;background:no-repeat center/contain;opacity:.6;
+     filter:saturate(.92) drop-shadow(0 8px 14px rgba(150,110,45,.2))}
+   .dream-bg .sb-read{left:2%;bottom:6%;width:clamp(120px,15vw,210px);height:clamp(120px,15vw,210px);background-image:url("assets/star-read.png")}
+   .dream-bg .sb-peek{right:2.5%;top:14%;width:clamp(90px,11vw,160px);height:clamp(90px,11vw,160px);background-image:url("assets/star-peek.png");opacity:.5}
+   @media(max-width:640px){.dream-bg .sb-read,.dream-bg .sb-peek{opacity:.32}} */
 
 .dream-bg .hang-stars{position:absolute;inset:0}
 .dream-bg .hs{
@@ -415,21 +438,38 @@ body{
 }
 .coach b{color:var(--no-2)}
 
-/* ---------- 完成星章 ---------- */
-.stamp{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;z-index:5}
+/* ---------- 完成星章（贴在右上角外侧，只有一点点压到格子空白处，不盖写好的字） ---------- */
+.stamp{
+  position:absolute;inset:auto;top:-15%;right:-13%;left:auto;bottom:auto;
+  width:31%;height:31%;display:grid;place-items:center;pointer-events:none;z-index:6;
+}
 .stamp > span{
-  width:46%;height:46%;display:grid;place-items:center;
-  font-family:var(--font-hei);color:var(--ink);font-size:min(13vw,72px);line-height:1;padding-bottom:6%;
+  width:100%;height:100%;display:grid;place-items:center;
+  font-family:var(--font-hei);color:var(--ink);font-size:min(6.4vw,38px);line-height:1;padding-bottom:9%;
   background:radial-gradient(circle at 34% 28%,var(--star-2),var(--star-1) 52%,var(--star-3));
   clip-path:polygon(50% 0%,63% 35%,100% 38%,70% 60%,80% 100%,50% 76%,20% 100%,30% 60%,0% 38%,37% 35%);
-  filter:drop-shadow(0 8px 18px rgba(181,124,29,.5));
+  filter:drop-shadow(0 6px 14px rgba(181,124,29,.5));
   animation:stampIn .55s cubic-bezier(.2,1.6,.35,1);
 }
 @keyframes stampIn{
-  0%{opacity:0;transform:scale(1.8) rotate(-20deg)}
-  60%{opacity:1;transform:scale(.9) rotate(8deg)}
-  100%{opacity:1;transform:scale(1) rotate(-6deg)}
+  0%{opacity:0;transform:scale(1.9) rotate(-24deg)}
+  60%{opacity:1;transform:scale(.92) rotate(10deg)}
+  100%{opacity:1;transform:scale(1) rotate(-8deg)}
 }
+
+/* ---------- 奖励星星娃娃（写对时从田字格左下角蹦出来一下，不挡字） ----------
+   目前没有角色图，元素是隐形空壳、popBuddy() 逻辑已接好；
+   v1.2 把 assets/star-cheer.png 放进 background-image 就活了。 */
+.reward-buddy{
+  position:absolute;left:-6%;bottom:1%;z-index:7;pointer-events:none;
+  width:clamp(84px,20vw,144px);height:clamp(84px,20vw,144px);
+  background:no-repeat bottom center/contain;
+  /* background-image:url("assets/star-cheer.png"); */
+  opacity:0;transform:translateY(82%) scale(.55) rotate(-8deg);
+  transition:opacity .34s ease, transform .42s cubic-bezier(.28,1.5,.5,1);
+  filter:drop-shadow(0 10px 16px rgba(150,110,45,.32));
+}
+.reward-buddy.show{opacity:1;transform:translateY(0) scale(1) rotate(-3deg)}
 
 /* ---------- 听读音按钮 ---------- */
 .say-btn{

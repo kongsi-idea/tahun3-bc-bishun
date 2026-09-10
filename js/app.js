@@ -398,8 +398,22 @@
   var writer = null, curIdx = 0, curStep = "watch";
   var tianEl = $("#tianGrid"), targetEl = $("#writerTarget");
   var coachEl = $("#coachText"), actionsEl = $("#practiceActions"), stampEl = $("#stamp");
+  var rewardBuddyEl = $("#rewardBuddy");
   var stepBtns = document.querySelectorAll("#stepTabs .step");
   var sayBtn = $("#sayBtn");
+
+  /* 奖励星星娃娃：从田字格左下角蹦出来、停一下、退回去。图片缺失时是无害的空元素。 */
+  function popBuddy(el) {
+    if (!el) return;
+    el.hidden = false;
+    void el.offsetWidth;               // 强制回流，让 transition 生效
+    el.classList.add("show");
+    clearTimeout(el._popT);
+    el._popT = setTimeout(function () {
+      el.classList.remove("show");
+      setTimeout(function () { el.hidden = true; }, 500);
+    }, 1900);
+  }
 
   function sayChar(ch, auto) {
     if (!Say.available()) { sayBtn.hidden = true; return; }
@@ -453,6 +467,7 @@
   function loadStep() {
     var ch = curUnit.chars[curIdx];
     stampEl.hidden = true;
+    if (rewardBuddyEl) { clearTimeout(rewardBuddyEl._popT); rewardBuddyEl.classList.remove("show"); rewardBuddyEl.hidden = true; }
     setStepUI();
     Say.stop(); sayBtn.classList.remove("saying");
     sayBtn.hidden = !Say.available();
@@ -534,6 +549,7 @@
     stampEl.hidden = false;
     setTimeout(Sfx.fanfare, 180);
     flyStars(3);
+    popBuddy(rewardBuddyEl);
     coachEl.innerHTML = wasDone ? "又写对了，真棒！" : "写好了！得到一颗 ★";
     actionsEl.innerHTML = "";
     addBtn("再写一次", "", function () { stampEl.hidden = true; curStep = "write"; loadStep(); });
@@ -589,7 +605,7 @@
   /* ---------- 小考 ---------- */
   var quizList = [], quizPos = 0, quizRight = 0, quizWriter = null;
   var qTarget = $("#quizTarget"), qStamp = $("#quizStamp"), qCoach = $("#quizCoach"),
-      qActions = $("#quizActions"), qTian = $("#quizTian");
+      qActions = $("#quizActions"), qTian = $("#quizTian"), qRewardBuddy = $("#quizRewardBuddy");
 
   function startQuiz() {
     quizList = curUnit.chars.slice();
@@ -605,6 +621,7 @@
   }
   function quizStep() {
     qStamp.hidden = true;
+    if (qRewardBuddy) { clearTimeout(qRewardBuddy._popT); qRewardBuddy.classList.remove("show"); qRewardBuddy.hidden = true; }
     $("#quizPos").textContent = "第 " + (quizPos + 1) + " / " + quizList.length + " 题";
     var ch = quizList[quizPos];
     qCoach.innerHTML = "凭记忆写出来。";
@@ -628,6 +645,7 @@
           if (!s || s.totalMistakes <= 2) quizRight++;
           bump(ch, 2);
           Sfx.stamp(); qStamp.hidden = false; setTimeout(Sfx.ding, 150);
+          popBuddy(qRewardBuddy);
           qActions.innerHTML = "";
           var b = document.createElement("button");
           b.type = "button"; b.className = "pa-btn gold";

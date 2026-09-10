@@ -1,7 +1,28 @@
 # tahun3-bc-bishun · 三年级写字（笔顺描红）
 
-**状态**：✅ **已上线**（`https://tahun3-bc-bishun.vercel.app`），已上架课堂点子铺。**v1.0**。
-**最后更新**：2026-09-10（Claude Sonnet 5，老师说继续做后直接部署）
+**状态**：✅ **已上线**（`https://tahun3-bc-bishun.vercel.app`），已上架课堂点子铺。**v1.1**。
+**最后更新**：2026-09-10（Claude Sonnet 5）
+
+## v1.1（2026-09-10，学生用之前，安全）
+老师反馈「背景很空」「奖励动画不要挡住写好的字」。
+- **金星「棒」章移到田字格右上角外侧** —— 像盖在纸角的印章，只有一点点压到格子空白处，
+  写好的字完整露出来（旧版是 46% 大小盖在正中，把字挡住了）
+- **背景加厚**：垂吊金星 5→8 颗（远近大小不一）、多一层云、加了一层细小闪烁星点（很淡）
+- **奖励星星娃娃弹入机制已接好但没图**：`#rewardBuddy` 元素 + `popBuddy()` 逻辑写好了，
+  写对一个字 / 小考答对会从田字格左下角蹦出来一下再退回去、不挡字；
+  但**没有角色图**（见下），现在是隐形空壳，不影响任何功能、无 console 报错
+- **静态星星娃娃布景**（坐在云上看书 / 云后探头）CSS 已备好、注释起来了，等图片就绪接回
+
+### ⚠️ 星星小人角色 —— 两条生图路都断了（2026-09-10 13:xx）
+1. `~/.openai.env` 的 OpenAI API key：`no credits remaining`
+2. Codex `xx` 帐号：`xx-limit.sh --gate` = STOP，ChatGPT/Codex 用量上限（"try again at 2:52 PM"）
+
+→ **v1.2 待办**（任一条路通了就做）：生 3 张原创星星娃娃透明 PNG 存 `assets/`：
+   `star-cheer.png`（举星欢呼，奖励弹入用）/ `star-read.png`（坐云看书，布景）/ `star-peek.png`（云后探头，布景）。
+   角色设定：胖幼儿、桃色皮肤、圆红脸颊、圆点眼、奶油黄星形帽连体衣、暖金梦幻水粉风、**原创不抄盲盒**。
+   放进去只要：① `css/style.css` 里 `.reward-buddy` 的 `background-image` 取消注释；
+   ② 那段注释掉的 `.scene-buddy` CSS 接回 + `index.html` 放回 `sb-read`/`sb-peek` 两个 div。
+   然后 `vercel deploy --prod`。
 
 ## 这是什么
 照 `tahun1-bc-bishun` / `tahun2-bc-bishun` 的架构做的三年级版：换数据（三年级习写生字）+ 换皮。

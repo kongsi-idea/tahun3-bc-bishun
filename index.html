@@ -12,17 +12,22 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<!-- 暖调梦幻背景：晨光 + 云 + 垂吊的金色剪纸星星 -->
+<!-- 暖调梦幻背景：晨光 + 云 + 垂吊的金色剪纸星星 + 静态星星娃娃布景 -->
 <div class="dream-bg" aria-hidden="true">
   <div class="sun-glow"></div>
-  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div>
+  <div class="twinkles"></div>
+  <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div><div class="cloud c5"></div>
   <div class="hang-stars">
-    <span class="hs" style="--x:12%;--l:70px;--s:26px;--d:0s"></span>
-    <span class="hs" style="--x:26%;--l:120px;--s:20px;--d:.6s"></span>
-    <span class="hs" style="--x:48%;--l:56px;--s:30px;--d:1.1s"></span>
-    <span class="hs" style="--x:70%;--l:100px;--s:22px;--d:.3s"></span>
-    <span class="hs" style="--x:86%;--l:76px;--s:27px;--d:.9s"></span>
+    <span class="hs" style="--x:8%;--l:64px;--s:24px;--d:0s"></span>
+    <span class="hs" style="--x:19%;--l:128px;--s:17px;--d:.7s"></span>
+    <span class="hs" style="--x:31%;--l:52px;--s:29px;--d:1.2s"></span>
+    <span class="hs" style="--x:44%;--l:96px;--s:20px;--d:.4s"></span>
+    <span class="hs" style="--x:57%;--l:70px;--s:26px;--d:1.5s"></span>
+    <span class="hs" style="--x:70%;--l:112px;--s:18px;--d:.2s"></span>
+    <span class="hs" style="--x:82%;--l:58px;--s:28px;--d:.95s"></span>
+    <span class="hs" style="--x:92%;--l:88px;--s:21px;--d:1.35s"></span>
   </div>
+  <!-- 静态星星娃娃布景 sb-read / sb-peek 等图片就绪后再放回来（v1.2） -->
   <div class="hill-cloud"></div>
 </div>
 <!-- 华丽金色画框 -->
@@ -113,6 +118,7 @@
         <div id="writerTarget" class="writer-target"></div>
         <div class="stamp" id="stamp" hidden><span>棒</span></div>
       </div>
+      <div class="reward-buddy" id="rewardBuddy" hidden></div>
     </div>
     <button class="say-btn" id="sayBtn" type="button" hidden><span aria-hidden="true">🔊</span> 听读音</button>
     <p class="coach" id="coachText"></p>
@@ -136,6 +142,7 @@
         <div id="quizTarget" class="writer-target"></div>
         <div class="stamp" id="quizStamp" hidden><span>棒</span></div>
       </div>
+      <div class="reward-buddy" id="quizRewardBuddy" hidden></div>
     </div>
     <p class="coach" id="quizCoach">凭记忆写出来，写错了会给你提示。</p>
   </div>
