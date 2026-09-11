@@ -8,6 +8,18 @@
 
   var UNITS = window.UNITS;
   var HW = window.HW_DATA;
+  var PY = window.PINYIN_DATA || {};   // { 字: {py, word} }，见 js/pinyin-data.js
+
+  /* 拼音标注 + 定音朗读共用同一份数据：孤字读音常猜错多音字，
+     统一改成读「字，词」，词是从课本核对过的，逼出正确读音。 */
+  function pinyinTag(ch) {
+    var e = PY[ch];
+    return e ? (ch + ' <span class="py">' + e.py + "</span>") : "";
+  }
+  function speakTextFor(ch) {
+    var e = PY[ch];
+    return e && e.word && e.word !== ch ? (ch + "，" + e.word) : ch;
+  }
 
   /* ---------- 当前学生 + 进度 ----------
      进度 = { "字": 0|1|2 }  0=未学 1=描过 2=写过(★)
@@ -398,7 +410,7 @@
   var writer = null, curIdx = 0, curStep = "watch";
   var tianEl = $("#tianGrid"), targetEl = $("#writerTarget");
   var coachEl = $("#coachText"), actionsEl = $("#practiceActions"), stampEl = $("#stamp");
-  var rewardBuddyEl = $("#rewardBuddy");
+  var rewardBuddyEl = $("#rewardBuddy"), pinyinTagEl = $("#pinyinTag");
   var stepBtns = document.querySelectorAll("#stepTabs .step");
   var sayBtn = $("#sayBtn");
 
@@ -420,7 +432,7 @@
     sayBtn.hidden = false;
     if (auto && Sfx.isMuted()) return;   // 自动读音跟着静音开关；手动按永远会响
     sayBtn.classList.add("saying");
-    Say.speak(ch, null, function () { sayBtn.classList.remove("saying"); });
+    Say.speak(speakTextFor(ch), null, function () { sayBtn.classList.remove("saying"); });
   }
   sayBtn.addEventListener("click", function () {
     if (curUnit && curUnit.chars[curIdx]) sayChar(curUnit.chars[curIdx], false);
@@ -468,6 +480,7 @@
     var ch = curUnit.chars[curIdx];
     stampEl.hidden = true;
     if (rewardBuddyEl) { clearTimeout(rewardBuddyEl._popT); rewardBuddyEl.classList.remove("show"); rewardBuddyEl.hidden = true; }
+    if (pinyinTagEl) pinyinTagEl.innerHTML = pinyinTag(ch);
     setStepUI();
     Say.stop(); sayBtn.classList.remove("saying");
     sayBtn.hidden = !Say.available();
@@ -605,7 +618,8 @@
   /* ---------- 小考 ---------- */
   var quizList = [], quizPos = 0, quizRight = 0, quizWriter = null;
   var qTarget = $("#quizTarget"), qStamp = $("#quizStamp"), qCoach = $("#quizCoach"),
-      qActions = $("#quizActions"), qTian = $("#quizTian"), qRewardBuddy = $("#quizRewardBuddy");
+      qActions = $("#quizActions"), qTian = $("#quizTian"), qRewardBuddy = $("#quizRewardBuddy"),
+      qPinyinTag = $("#quizPinyinTag");
 
   function startQuiz() {
     quizList = curUnit.chars.slice();
@@ -624,6 +638,7 @@
     if (qRewardBuddy) { clearTimeout(qRewardBuddy._popT); qRewardBuddy.classList.remove("show"); qRewardBuddy.hidden = true; }
     $("#quizPos").textContent = "第 " + (quizPos + 1) + " / " + quizList.length + " 题";
     var ch = quizList[quizPos];
+    if (qPinyinTag) qPinyinTag.innerHTML = pinyinTag(ch);
     qCoach.innerHTML = "凭记忆写出来。";
     qActions.innerHTML = "";
     qTarget.innerHTML = "";
